@@ -1,3 +1,5 @@
 venv/
 .env
 logs/
+finalnetworksecurity.pdf
+build/
