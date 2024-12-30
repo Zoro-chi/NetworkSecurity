@@ -4,3 +4,7 @@ numpy
 pymongo
 certifi
 wheel
+# pymongo[srv]==3.6
+pymongo==3.12.3
+scikit-learn
+
