@@ -16,7 +16,7 @@ SCHEMA_FILE_PATH = os.path.join("data_schema", "schema.yaml")
 PRERPOCESSING_OBJECT_FILE_NAME: str = "preprocessing.pkl"
 SAVED_MODEL_DIR = os.path.join("saved_models")
 MODEL_FILE_NAME: str = "model.pkl"
-
+S3_TRAINING_BUCKET_NAME: str = "network-security-model"
 
 """
 DATA INGESTION RELATED CONSTANTS START WITH 'DATA_INGESTION' PREFIX
