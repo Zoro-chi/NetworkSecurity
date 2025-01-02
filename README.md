@@ -16,6 +16,8 @@ This project focuses on network security by leveraging machine learning and data
 - [Model Training](#model-training)
 - [API Endpoints](#api-endpoints)
 - [Syncing Artifacts to S3](#syncing-artifacts-to-s3)
+- [Docker](#docker)
+- [GitHub Actions Workflow](#github-actions-workflow)
 - [Results](#results)
 
 ## Project Overview
@@ -41,6 +43,10 @@ NetworkSecurity/
 ├── app.py
 ├── main.py
 ├── requirements.txt
+├── Dockerfile
+├── .github/
+│   └── workflows/
+│       └── network-security-workflow.yml
 └── README.md
 ```
 
@@ -178,6 +184,28 @@ class S3Sync:
         command = f"aws s3 sync {aws_bucket_url} {folder} "
         os.system(command)
 ```
+
+## Docker
+
+The project uses Docker to containerize the application. The Docker image is built and pushed to Amazon ECR (Elastic Container Registry).
+
+### Build and Run Docker Container
+
+1. Build the Docker image:
+
+```sh
+  docker build -t network-security:latest .
+```
+
+2. Run the Docker container:
+
+```sh
+  docker run -p 8000:8000 network-security:latest
+```
+
+## GitHub Actions Workflow
+
+The project includes a GitHub Actions workflow for continuous integration and continuous delivery. The workflow builds the Docker image and pushes it to Amazon ECR.
 
 ## Results
 

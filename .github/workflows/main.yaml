@@ -48,18 +48,22 @@ jobs:
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v1
 
-      - name: Build, tag and push image to Amazon ECR
+      - name: Build, tag and push image to Amazon Public ECR
         id: build-image
         env:
-          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          PUBLIC_ECR_REGISTRY: ${{ secrets.AWS_PUBLIC_ECR_REGISTRY }}
           ECR_REPOSITORY: ${{ secrets.ECR_REPOSITORY_NAME }}
           IMAGE_TAG: latest
         run: |
-          # Build a docker image
-          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+          # Authenticate to Amazon Public ECR
+          aws ecr-public get-login-password --region ${{ secrets.AWS_REGION }} | \
+          docker login --username AWS --password-stdin $PUBLIC_ECR_REGISTRY
 
-          # Push the image to Amazon ECR
-          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+          # Build the Docker image
+          docker build -t $PUBLIC_ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
 
-          # Deploy the image to Amazon ECS
-          echo "::set-output name=image::$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
+          # Push the Docker image to Public ECR
+          docker push $PUBLIC_ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+
+          # Output the pushed image URL
+          echo "::set-output name=image::$PUBLIC_ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
