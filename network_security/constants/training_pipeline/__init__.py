@@ -14,6 +14,8 @@ TRAIN_FILE_NAME: str = "train.csv"
 TEST_FILE_NAME: str = "test.csv"
 SCHEMA_FILE_PATH = os.path.join("data_schema", "schema.yaml")
 PRERPOCESSING_OBJECT_FILE_NAME: str = "preprocessing.pkl"
+SAVED_MODEL_DIR = os.path.join("saved_models")
+MODEL_FILE_NAME: str = "model.pkl"
 
 
 """
@@ -48,3 +50,11 @@ DATA_TRANSFORMATION_INPUTTER_PARAMS: dict = {
     "n_neighbors": 3,
     "weights": "uniform",
 }
+
+"""
+MODEL TRAINING RELATED CONSTANTS START WITH 'MODEL_TRAINING' PREFIX
+"""
+MODEL_TRAINING_DIR_NAME: str = "model_training"
+MODEL_TRAINING_TRAINED_MODEL_DIR: str = "trained_model"
+MODEL_TRAINING_SCORE: float = 0.6
+MODEL_TRAINING_OVERFITTING_UNDERFITTING_THRESHOLD: float = 0.05
