@@ -128,8 +128,7 @@ jobs:
       - name: Build, tag and push image to Amazon Public ECR
         id: build-image
         env:
-          PUBLIC_ECR_REGISTRY: ${{ secrets.AWS_PUBLIC_ECR_REGISTRY }}
-          ECR_ACCOUNT_ALIAS: ${{ secrets.ECR_ACCOUNT_ALIAS }}
+          PUBLIC_ECR_REGISTRY: public.ecr.aws/o1w2p9g7/network-security
           ECR_REPOSITORY: ${{ secrets.ECR_REPOSITORY_NAME }}
           IMAGE_TAG: latest
         run: |
@@ -138,20 +137,10 @@ jobs:
           docker login --username AWS --password-stdin $PUBLIC_ECR_REGISTRY
 
           # Build the Docker image
-          docker build -t public.ecr.aws.$ECR_ACCOUNT_ALIAS/$ECR_REPOSITORY:$IMAGE_TAG .
+            docker build -t $PUBLIC_ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
 
-          # Retry pushing the Docker image to Public ECR
-          retries=5
-          for i in $(seq 1 $retries); do
-            docker push public.ecr.aws.$ECR_ACCOUNT_ALIAS/$ECR_REPOSITORY:$IMAGE_TAG && break
-            if [ $i -lt $retries ]; then
-              echo "Retrying push... attempt $i"
-              sleep 10
-            else
-              echo "Docker push failed after $retries attempts"
-              exit 1
-            fi
-          done
+          # Push the Docker image to Public ECR
+            docker push $PUBLIC_ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
 
           # Output the pushed image URL
           echo "image=public.ecr.aws.$ECR_ACCOUNT_ALIAS/$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_ENV
