@@ -52,6 +52,7 @@ jobs:
         id: build-image
         env:
           PUBLIC_ECR_REGISTRY: ${{ secrets.AWS_PUBLIC_ECR_REGISTRY }}
+          ECR_ACCOUNT_ALIAS: ${{ secrets.ECR_ACCOUNT_ALIAS }}
           ECR_REPOSITORY: ${{ secrets.ECR_REPOSITORY_NAME }}
           IMAGE_TAG: latest
         run: |
@@ -60,10 +61,10 @@ jobs:
           docker login --username AWS --password-stdin $PUBLIC_ECR_REGISTRY
 
           # Build the Docker image
-          docker build -t $PUBLIC_ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+          docker build -t public.ecr.aws.$ECR_ACCOUNT_ALIAS/$ECR_REPOSITORY:$IMAGE_TAG .
 
           # Push the Docker image to Public ECR
-          docker push $PUBLIC_ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+          docker push public.ecr.aws.$ECR_ACCOUNT_ALIAS/$ECR_REPOSITORY:$IMAGE_TAG
 
           # Output the pushed image URL
           echo "::set-output name=image::$PUBLIC_ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
