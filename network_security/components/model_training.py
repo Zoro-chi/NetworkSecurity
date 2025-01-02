@@ -1,5 +1,10 @@
 import os, sys
 import mlflow
+import dagshub
+
+# Initialize dagshub
+dagshub.init(repo_owner="Zoro-chi", repo_name="NetworkSecurity", mlflow=True)
+
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import f1_score, r2_score
 from sklearn.neighbors import KNeighborsClassifier
@@ -125,6 +130,9 @@ class ModelTraining:
         )
         Network_Model = NetworkModel(preprocessor, best_model)
         save_object(model_file_path, Network_Model)
+
+        # Save final model to be used for predictions / Model Pusher
+        save_object("final_model/model.pkl", best_model)
 
         # Model Training Artifact
         model_training_artifact = ModelTrainingArtifact(
