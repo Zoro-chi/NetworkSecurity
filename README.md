@@ -91,7 +91,7 @@ NetworkSecurity/
 3. Run FastAPI application:
 
    ```sh
-   uvicorn app:app --reload
+   python app.py
    ```
 
 ## Configuration
@@ -112,7 +112,23 @@ The data transformation component handles missing values using KNN imputation an
 
 ## Model Training
 
-The model training component trains a machine learning model using the transformed data. The trained model is saved in the `artifacts` directory.
+The model training component trains multiple machine learning models using the transformed data, evaluates them, and selects the best model based on performance metrics. The trained model is saved in the `artifacts` directory, and the training process is tracked using MLflow.
+
+### Model Training Steps
+
+1. **Model Training**: Multiple machine learning models are trained using the transformed data. The models include:
+
+   - Random Forest
+   - Decision Tree
+   - Gradient Boosting
+   - Logistic Regression
+   - AdaBoost
+
+2. **Model Evaluation**: The trained models are evaluated using metrics such as F1 score, recall, and precision. The best model is selected based on these metrics.
+
+3. **Model Tracking with MLflow**: The training process and metrics are tracked using MLflow and dagshub. This includes logging the metrics and saving the trained model.
+
+4. **Model Saving**: The best model is saved to the specified file path for future use.
 
 ## API Endpoints
 
