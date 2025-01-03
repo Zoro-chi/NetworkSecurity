@@ -221,7 +221,7 @@ The project uses Docker to containerize the application. The Docker image is bui
 
 ## GitHub Actions Workflow
 
-The project includes a GitHub Actions workflow for continuous integration and continuous delivery. The workflow builds the Docker image and pushes it to Amazon ECR.
+The project includes a GitHub Actions workflow for continuous integration, continuous delivery and continuous Deployment. The workflow builds the Docker image and pushes it to Amazon ECR and also syncs the artifacts to S3. Adter that, it deploys the FastAPI application to an EC2 instance. The workflow is defined in the `.github/workflows/network-security-workflow.yml` file. The workflow is triggered on push events to the main branch. You can customize the workflow to suit your requirements.
 
 ## Results
 
