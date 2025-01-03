@@ -51,7 +51,6 @@ jobs:
       - name: Build, tag and push image to Amazon Public ECR
         id: build-image
         env:
-          #   PUBLIC_ECR_REGISTRY: public.ecr.aws/o1w2p9g7/network-security
           PUBLIC_ECR_REGISTRY: ${{ secrets.AWS_PUBLIC_ECR_REGISTRY }}
           IMAGE_TAG: latest
         run: |
