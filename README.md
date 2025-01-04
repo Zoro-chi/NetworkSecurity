@@ -1,6 +1,8 @@
-# Network Security Project for Phishing Detection
+# Network Security Machine Learning Project for Phishing Detection
 
 This project focuses on network security by leveraging machine learning and data science techniques to detect phishing attacks. The project involves data ingestion, validation, transformation, and model training to build a robust phishing detection system.
+
+**_DATASET:_** The dataset used in this project is the [Phishing Websites Dataset](https://www.kaggle.com/datasets/nitsey/dataset-phising-website) from Keggle. The dataset contains 30 features and 11055 samples.
 
 ## Table of Contents
 
